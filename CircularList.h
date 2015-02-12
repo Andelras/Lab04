@@ -63,8 +63,8 @@ DoubleNode<T>* CircularList<T>::find(int index)
  
    if (index >= loc_pos)
    {
-		dist_prev = ((sze - index) + loc_pos);	//distance without the bridge (next refs, positive)
-		dist_next = -(index - loc_pos);			//distance using the bridge (prev refs, negative)
+		dist_prev = -((sze - index) + loc_pos);	//distance without the bridge (next refs, positive)
+		dist_next = (index - loc_pos);			//distance using the bridge (prev refs, negative)
    }
    else
    {
@@ -157,8 +157,16 @@ void CircularList<T>::remove(int index)
 		DoubleNode<T>* next = curr->getNext();
 		prev->setNext(next);
 		next->setPrev(prev);
-		loc = prev;
-		loc_pos = index-1;
+		loc = next;
+		
+		if (index == 1)
+		{
+			loc_pos = 1;
+		}
+		else
+		{
+			loc_pos = index;
+		}
 		delete curr;
       }
       sze--;
